@@ -1,28 +1,23 @@
 <?php
     require_once __DIR__."/../vendor/autoload.php";
-    require_once __DIR__."/../src/Album.php";
-    session_start();
-    if (empty($_SESSION['list_of_albums'])) {
-        $_SESSION['list_of_albums'] = array();
-    }
+    require_once __DIR__."/../src/QueenAttack.php";
+
     $app = new Silex\Application();
+    $app['debug'] = true;
+
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/../views'
+        'twig.path' => __DIR__.'/../views'
     ));
+
     $app->get("/", function() use ($app) {
-        return $app['twig']->render('home-list.html.twig', array('user_albums' => Album::getAll()));
+        return $app['twig']->render('form.html.twig');
     });
-    $app->get("/albumform", function() use ($app) {
-        return $app['twig']->render('add-album.html.twig');
+
+    $app->get("/result", function() use($app){
+        $my_queen = new Queen();
+        $queen_result = $my_queen->canAttack($_GET['queenX'], $_GET['queenY'], $_GET['pieceX'], $_GET['pieceY']);
+        return $app['twig']->render('result.html.twig', array('result' => $queen_result));
     });
-    $app->post("/addalbum", function() use ($app) {
-        $newAlbum = new Album($_POST['artist'], $_POST['title']);
-        $newAlbum->save();
-        return $app['twig']->render('home-list.html.twig', array('user_albums' => Album::getAll()));
-    });
-    $app->get("/clearlist", function() use ($app) {
-        Album::deleteAll();
-        return $app['twig']->render('home-list.html.twig');
-    });
+
     return $app;
 ?>
