@@ -8,14 +8,14 @@
         <h1>Check if queen can attack piece or not:</h1>
         <form action="/result">
           <label for="queenX">Queen X Coordinate:</label>
-          <input id="queenX" name="queenX" type="text" required>
+          <input id="queenX" name="queenX" type="text" maxlength= "1" required>
           <label for="queenY">Queen Y Coordinate:</label>
-          <input id="queenY" name="queenY" type="number" required>
+          <input id="queenY" name="queenY" type="number" maxlength= "1" required>
           <label for="pieceX">Piece X Coordinate:</label>
-          <input id="pieceX" name="pieceX" type="text" required>
+          <input id="pieceX" name="pieceX" type="text" maxlength= "1" required>
           <label for="pieceY">Piece Y Coordinate:</label>
           <input id="pieceY" name="pieceY" type="number" required>
-          <button type="submit" class="btn btn-success" name="button">Attack!</button>
+          <button type="submit" class="btn btn-success" maxlength= "1" name="button">Attack!</button>
         </form>
         <img src="http://www.chess-game-strategies.com/images/annotated-chess_algebraic_naming-squares.gif" alt="" />
     </body>
